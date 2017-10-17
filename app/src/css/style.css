@@ -1,0 +1,149 @@
+body{
+  background-color: rgb(140, 240, 246);
+}
+#sitename{
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+  color: rgb(140, 240, 246);
+  text-shadow: -2px 2px 1px black;
+}
+.sitebanner{
+  background-color: white;
+}
+.user_commands{
+  float: right;
+}
+.util_button{
+   text-align: center;
+}
+#logoutbutton:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+#sitename:hover{
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  font-size: 300%;
+}
+/*Style for Bootstrap animated dropdown-menu*/
+.open .dropdown-menu {
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.dropdown-menu {
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-transform: scale(1, 0);
+  display: block;
+
+  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.1s ease-out;
+}
+/*Styling ended*/
+form{
+  width: 50%;
+}
+#signupform,#loginform,#otpForm{
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  margin:auto;
+}
+input{
+  outline: none;
+}
+.btn:hover{
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;  ;
+  font-size: 125%;
+}
+.noshow{
+  width: 95%;
+  margin: auto;
+  position: absolute;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  opacity: 0;
+  visibility: collapse;
+}
+.yesshow{
+  width: 95%;
+  margin: auto;
+  position: absolute;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  opacity: 1;
+  visibility:visible;
+}
+.blinkshow{
+  visibility:visible;
+  width: 95%;
+  margin: auto;
+  position: absolute;
+  animation-name: blinky;
+  animation-duration: 1s;
+  animation-iteration-count:infinite;
+  animation-timing-function: ease-in-out;
+}
+@keyframes blinky{
+  0%{opacity: 0;}
+  50%{opacity: 1;}
+  100%{opacity: 0;}
+}
+@keyframes slideIn{
+  0% {width: 0%;opacity: 0;}
+  50%{width: 60%;opacity: 0;}
+  100%{width: 100%; opacity: 1;}
+}
+select,option{
+  outline: none;
+  text-indent: 35%;
+  width: 30%;
+  background-color: white;
+  border: none;
+  margin: 1%;
+}
+#first,#middle,#last{
+  display: inline;
+}
+.panel-footer{
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+.panel{
+  animation-name: slideIn;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+.panel,.panel-footer{
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  bottom: 0;
+}
+.footerlink{
+  color: white;
+  text-decoration: none;
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+.footerlink span{
+  display: none;
+}
+.footerlink:hover{
+  color: white;
+  font-size: 150%;
+}

@@ -1,6 +1,7 @@
-<?php
-    $json = json_encode(array(
-            'message' => 'Hello World!' 
-            ));
-    echo $json;
+<body class = "container-fluid">
+  <?php
+    require_once 'headerprereq.php';
+    require_once 'sitebanner.php';
+    require_once 'footer.php';
 ?>
+</body>
