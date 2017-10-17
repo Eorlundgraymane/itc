@@ -7,7 +7,7 @@
     <meta name = "author" content = "PIRAVI 2.0">
     <meta name = "keywords" content = "Human,Social,Media,Share,Like,Post,Help,Save,Trees,Animals,Plants,Charity,Quality,Time,Celebrate,Exercise,Fun,Leaderboards">
     <link rel="icon" href="css/favicon.ico" sizes="16x16">
-    <title>Welcome to Sunshine</title>
+    <title>ITC | Mini Project</title>
   </head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
