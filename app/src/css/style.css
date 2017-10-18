@@ -133,7 +133,7 @@ select,option{
   transition-timing-function: ease-in-out;
   color: white;
   background-color: rgba(0,0,0,0.5);
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
 .footerlink{
