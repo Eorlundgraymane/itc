@@ -4,8 +4,7 @@ fileApp.controller("fileCtrl",function($scope,$http){
   $scope.showContent = function(element){
       var textfile = element.files[0];
       var reader = new FileReader();
-      reader.onload = function(e){
-        console.log(String(reader.result));
+      reader.onload = function(e){        
         $scope.$apply(function(){
           $scope.content = String(reader.result);
           sharedContent = $scope.content;
