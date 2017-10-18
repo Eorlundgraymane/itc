@@ -20,16 +20,40 @@ fileApp.controller("fileCtrl",function($scope,$http){
 var analyzeApp = angular.module("analyzeApp",['fileApp']);
 analyzeApp.controller("analyzeCtrl",function($scope){
   $scope.method1 = function(){
-    $scope.encoded = "Encoded using Method 1\n" + sharedContent;
+    if(sharedContent){
+      $scope.encoded = "Encoded using Method 1\n" + sharedContent;
+    }
+    else {
+      $scope.encoded = "";
+      document.getElementById("analyzediv").classList.add("hidden");
+    }
   }
   $scope.method2 = function(){
-    $scope.encoded = "Encoded using Method 2\n" + sharedContent;
+    if(sharedContent){
+      $scope.encoded = "Encoded using Method 2\n" + sharedContent;
+    }
+    else {
+      $scope.encoded = "";
+      document.getElementById("analyzediv").classList.add("hidden");
+    }
   }
   $scope.method3 = function(){
-    $scope.encoded = "Encoded using Method 3\n" + sharedContent;
+    if(sharedContent){
+      $scope.encoded = "Encoded using Method 3\n" + sharedContent;
+    }
+    else {
+      $scope.encoded = "";
+      document.getElementById("analyzediv").classList.add("hidden");
+    }
   }
   $scope.method4 = function(){
-    $scope.encoded = "Encoded using Method 4\n" + sharedContent;
+      if(sharedContent){
+      $scope.encoded = "Encoded using Method 4\n" + sharedContent;
+    }
+    else {
+      $scope.encoded = "";
+      document.getElementById("analyzediv").classList.add("hidden");
+    }
   }
 });
 angular.bootstrap(document.getElementById("analyzediv"), ['analyzeApp']);
