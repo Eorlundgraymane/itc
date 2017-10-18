@@ -1,6 +1,9 @@
 body{
   background-color: rgb(140, 240, 246);
 }
+textarea{
+  resize: none;
+}
 #sitename{
   transition-property: all;
   transition-duration: 0.2s;
