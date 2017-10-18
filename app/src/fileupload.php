@@ -5,6 +5,7 @@
       <label for = "inputtext">File content is :</label>
         <textarea class = "form-control" rows = "15" id = "inputtext" >{{content}}</textarea><br>
         <button type = "button" class = "btn btn-primary" ng-click = "analyze();">Analyze</button>
+        <button type = "button" class = "btn btn-primary" ng-click = "clear();">Clear</button>
     </div>
   </div>
 </div>

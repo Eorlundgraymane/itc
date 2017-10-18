@@ -13,6 +13,11 @@ fileApp.controller("fileCtrl",function($scope,$http){
       };
       reader.readAsText(textfile);
   }
+  $scope.clear = function(){
+    sharedContent = "";
+    $scope.content = "";
+    document.getElementById("analyzediv").classList.add("hidden");
+  }
   $scope.analyze = function(){
     document.getElementById("analyzediv").classList.remove("hidden");
   }
