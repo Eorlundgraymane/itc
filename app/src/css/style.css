@@ -5,12 +5,10 @@ textarea{
   resize: none;
 }
 #sitename{
-  transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
+  font-weight:bolder;
   cursor: pointer;
   color: rgb(140, 240, 246);
-  text-shadow: -2px 2px 1px black;
+  text-shadow: 3px 2px 3px black;
 }
 .sitebanner{
   background-color: white;
@@ -24,12 +22,6 @@ textarea{
 #logoutbutton:hover{
   text-decoration: underline;
   cursor: pointer;
-}
-#sitename:hover{
-  transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  font-size: 300%;
 }
 /*Style for Bootstrap animated dropdown-menu*/
 .open .dropdown-menu {
@@ -59,12 +51,6 @@ form{
 }
 input{
   outline: none;
-}
-.btn:hover{
-  transition-property: all;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;  ;
-  font-size: 125%;
 }
 .noshow{
   width: 95%;
