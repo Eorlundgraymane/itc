@@ -4,7 +4,7 @@ fileApp.controller("fileCtrl",function($scope,$http){
   $scope.showContent = function(element){
       var textfile = element.files[0];
       var reader = new FileReader();
-      reader.onload = function(e){        
+      reader.onload = function(e){
         $scope.$apply(function(){
           $scope.content = String(reader.result);
           sharedContent = $scope.content;
@@ -16,6 +16,7 @@ fileApp.controller("fileCtrl",function($scope,$http){
     sharedContent = "";
     $scope.content = "";
     document.getElementById("analyzediv").classList.add("hidden");
+    document.getElementById('fileToUpload').value = "";
     document.getElementById('method1button').click();
   }
   $scope.analyze = function(){
