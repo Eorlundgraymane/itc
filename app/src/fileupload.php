@@ -3,7 +3,7 @@
     <input class = " well btn btn-default" ng-model = "text" onchange="angular.element(this).scope().showContent(this)" type = "file" accept = "text/*">
     <div ng-if = "content" class = "well form-group col-xs-12 col-lg-12 col-md-12 col-sm-12">
       <label for = "inputtext">File content is :</label>
-        <textarea class = "form-control" rows = "15" id = "inputtext" >{{content}}</textarea>
+        <textarea class = "form-control" rows = "15" id = "inputtext" >{{content}}</textarea><br>
         <button type = "button" class = "btn btn-primary" ng-click = "analyze();">Analyze</button>
     </div>
   </div>
