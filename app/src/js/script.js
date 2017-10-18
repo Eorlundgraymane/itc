@@ -13,6 +13,6 @@ fileApp.controller("fileCtrl",function($scope,$http){
       reader.readAsText(textfile);
   }
   $scope.analyze = function(){
-    alert("Called");
+    alert("Analysis Function Coming Soon");
   }
 });
