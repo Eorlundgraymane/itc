@@ -17,6 +17,7 @@ fileApp.controller("fileCtrl",function($scope,$http){
     sharedContent = "";
     $scope.content = "";
     document.getElementById("analyzediv").classList.add("hidden");
+    document.getElementById('method1button').click();
   }
   $scope.analyze = function(){
     document.getElementById("analyzediv").classList.remove("hidden");
