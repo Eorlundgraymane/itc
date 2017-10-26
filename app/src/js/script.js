@@ -27,7 +27,7 @@ var analyzeApp = angular.module("analyzeApp",['fileApp']);
 analyzeApp.controller("analyzeCtrl",function($scope){
   $scope.method1 = function(){
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 1\n" + sharedContent;
+      $scope.encoded = "Encoded using Method 1\n\n" + sharedContent;
     }
     else {
       $scope.encoded = "";
@@ -36,7 +36,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
   }
   $scope.method2 = function(){
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 2\n" + sharedContent;
+      $scope.encoded = "Encoded using Method 2\n\n" + sharedContent;
     }
     else {
       $scope.encoded = "";
@@ -45,7 +45,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
   }
   $scope.method3 = function(){
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 3\n" + sharedContent;
+      $scope.encoded = "Encoded using Method 3\n\n" + sharedContent;
     }
     else {
       $scope.encoded = "";
@@ -54,7 +54,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
   }
   $scope.method4 = function(){
       if(sharedContent){
-      $scope.encoded = "Encoded using Method 4\n" + sharedContent;
+      $scope.encoded = "Encoded using Method 4\n\n" + sharedContent;
     }
     else {
       $scope.encoded = "";
