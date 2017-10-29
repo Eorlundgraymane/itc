@@ -26,8 +26,16 @@ fileApp.controller("fileCtrl",function($scope,$http){
 var analyzeApp = angular.module("analyzeApp",['fileApp']);
 analyzeApp.controller("analyzeCtrl",function($scope){
   $scope.method1 = function(){
+    var toEncode = "";
+    var count = 0;
+    for(var i = 0 ;i < sharedContent.length;i++){
+      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
+        count++;
+      }
+    }
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 1\n\n" + sharedContent;
+      toEncode = "Encoded using Method 1\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
+      $scope.encoded = toEncode;
     }
     else {
       $scope.encoded = "";
@@ -35,30 +43,56 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     }
   }
   $scope.method2 = function(){
+    var count = 0;
+    var toEncode = "";
+    for(var i = 0 ;i < sharedContent.length;i++){
+      if(sharedContent.charAt(i)>'A' && sharedContent.charAt(i)<'z'){
+        count++;
+      }
+
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 2\n\n" + sharedContent;
+      toEncode = "Encoded using Method 2\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
+      $scope.encoded = toEncode;
     }
     else {
       $scope.encoded = "";
       document.getElementById("analyzediv").classList.add("hidden");
     }
   }
+}
   $scope.method3 = function(){
+    var count = 0;
+    var toEncode = "";
+    for(var i = 0 ;i < sharedContent.length;i++){
+      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
+        count++;
+      }
+
     if(sharedContent){
-      $scope.encoded = "Encoded using Method 3\n\n" + sharedContent;
+      toEncode = "Encoded using Method 3\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
+      $scope.encoded = toEncode;
     }
     else {
       $scope.encoded = "";
       document.getElementById("analyzediv").classList.add("hidden");
     }
   }
+}
   $scope.method4 = function(){
+    var count = 0;
+    var toEncode = "";
+    for(var i = 0 ;i < sharedContent.length;i++){
+      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
+        count++;
+      }
       if(sharedContent){
-      $scope.encoded = "Encoded using Method 4\n\n" + sharedContent;
+        toEncode = "Encoded using Method 4\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
+        $scope.encoded = toEncode;
     }
-    else {
-      $scope.encoded = "";
-      document.getElementById("analyzediv").classList.add("hidden");
+      else {
+        $scope.encoded = "";
+        document.getElementById("analyzediv").classList.add("hidden");
+      }
     }
   }
 });
