@@ -28,11 +28,31 @@ analyzeApp.controller("analyzeCtrl",function($scope){
   $scope.method1 = function(){
     var toEncode = "";
     var count = 0;
-    for(var i = 0 ;i < sharedContent.length;i++){
-      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
-        count++;
+    var prob = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    console.log(prob.length);
+    var alpha = ['!','Š','+','/','#','{','}','[',']','?','\'','@','*','.','%','\\','=',';',':','(',')','-','_','"',"'",'&',',','\n','\t',' ','0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    console.log(alpha.length);
+    for(each of sharedContent){
+      var temp = 0;
+      for(bet of alpha){
+        if(each == bet){
+          prob[temp]++;
+        }
+        temp++;
       }
     }
+    var count = 0;
+    for(each of prob){
+      each/=sharedContent.length;
+      prob[count] =  each;
+      count++;
+    }
+    console.log(prob);
+    var sum = 0;
+    for(each of prob){
+      sum+=each;
+    }
+    console.log("\n"+sum);
     if(sharedContent){
       toEncode = "Encoded using Method 1\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
       $scope.encoded = toEncode;
