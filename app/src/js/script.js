@@ -54,30 +54,35 @@ analyzeApp.controller("analyzeCtrl",function($scope){
         alphatop++;
         probtop++;
         alpha[alphatop] = chara;
-        prob[probtop] = 0;
+        prob[probtop] = 1;
       }
       else{
         prob[$scope.search(chara,alpha,1)]++;
       }
     }
     console.log(alpha);
+    alert("Characters found are\n "+alpha);
     console.log(prob);
+    alert("Occurences of these characters are\n "+prob);
     var sum = 0;
     for(each of prob){
       sum+=each;
     }
     console.log(sum);
+    alert("Total number of characters in text are \n"+sum);
     var temp = 0;
     for(each in prob){
       prob[temp]/=sum;
       temp++;
     }
     console.log(prob);
+    alert("Corresponding probabilities of each character in file are\n"+prob);
     sum = 0;
     for(each of prob){
       sum+=each;
     }
     console.log(sum);
+    alert("Sum of all probabilities add up to (tolerance of rounding in computer calcuulcations)\n"+sum);
   }
   $scope.method2 = function(){
     var count = 0;
