@@ -25,42 +25,59 @@ fileApp.controller("fileCtrl",function($scope,$http){
 });
 var analyzeApp = angular.module("analyzeApp",['fileApp']);
 analyzeApp.controller("analyzeCtrl",function($scope){
+  //search and find function
+  $scope.search = function(c,ar,b){
+    var l = ar.length;
+    var i = 0;
+    for(i;i<l;i++){
+      if(ar[i] == c){
+        if(b==0){
+          return true;
+        }
+        else if(b==1){
+          return i;
+        }
+      }
+    }
+    return false;
+  };
   $scope.method1 = function(){
     var toEncode = "";
     var count = 0;
-    var prob = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    console.log(prob.length);
-    var alpha = ['!','Š','+','/','#','{','}','[',']','?','\'','@','*','.','%','\\','=',';',':','(',')','-','_','"',"'",'&',',','\n','\t',' ','0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    console.log(alpha.length);
-    for(each of sharedContent){
-      var temp = 0;
-      for(bet of alpha){
-        if(each == bet){
-          prob[temp]++;
-        }
-        temp++;
+    //scan characters
+    var prob = [];
+    var probtop = -1;
+    var alpha = [];
+    var alphatop = -1;
+    for(chara of sharedContent){
+      if(!$scope.search(chara,alpha,0)){
+        alphatop++;
+        probtop++;
+        alpha[alphatop] = chara;
+        prob[probtop] = 0;
+      }
+      else{
+        prob[$scope.search(chara,alpha,1)]++;
       }
     }
-    var count = 0;
-    for(each of prob){
-      each/=sharedContent.length;
-      prob[count] =  each;
-      count++;
-    }
+    console.log(alpha);
     console.log(prob);
     var sum = 0;
     for(each of prob){
       sum+=each;
     }
-    console.log("\n"+sum);
-    if(sharedContent){
-      toEncode = "Encoded using Method 1\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
-      $scope.encoded = toEncode;
+    console.log(sum);
+    var temp = 0;
+    for(each in prob){
+      prob[temp]/=sum;
+      temp++;
     }
-    else {
-      $scope.encoded = "";
-      document.getElementById("analyzediv").classList.add("hidden");
+    console.log(prob);
+    sum = 0;
+    for(each of prob){
+      sum+=each;
     }
+    console.log(sum);
   }
   $scope.method2 = function(){
     var count = 0;
