@@ -61,38 +61,38 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       }
     }
     console.log(alpha);
-    alert(alphatop+" characters found in text file");
-    alert("Characters found are\n "+alpha);
+    $scope.encoded = ("\n"+alphatop+" characters found in text file");
+    $scope.encoded +=("\nCharacters found are\n "+alpha);
     console.log(prob);
-    alert("Occurences of these characters are\n "+prob);
+    $scope.encoded +=("\nOccurences of these characters are\n "+prob);
     var sum = 0;
     for(each of prob){
       sum+=each;
     }
     console.log(sum);
-    alert("Total number of characters in text are \n"+sum);
+    $scope.encoded +=("\nTotal number of characters in text are \n"+sum);
     var temp = 0;
     for(each in prob){
       prob[temp]/=sum;
       temp++;
     }
     console.log(prob);
-    alert("Corresponding probabilities of each character in file are\n"+prob);
+    $scope.encoded +=("\nCorresponding probabilities of each character in file are\n"+prob);
     sum = 0;
     for(each of prob){
       sum+=each;
     }
     console.log(sum);
-    alert("Sum of all probabilities add up to (tolerance of rounding in computer calcuulcations)\n"+sum);
+    $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calcuulcations)\n"+sum);
   }
   $scope.method2 = function(){
-    alert("More methods coming soon");
+    $scope.encoded =("\nMore methods coming soon");
   }
   $scope.method3 = function(){
-    alert("More methods coming soon");
+    $scope.encoded =("\nMore methods coming soon");
   }
   $scope.method4 = function(){
-    alert("More methods coming soon");
+    $scope.encoded =("\nMore methods coming soon");
   }
 });
 angular.bootstrap(document.getElementById("analyzediv"), ['analyzeApp']);
