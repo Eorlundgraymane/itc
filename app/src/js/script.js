@@ -61,6 +61,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       }
     }
     console.log(alpha);
+    alert(alphatop+" characters found in text file");
     alert("Characters found are\n "+alpha);
     console.log(prob);
     alert("Occurences of these characters are\n "+prob);
