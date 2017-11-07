@@ -86,57 +86,13 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     alert("Sum of all probabilities add up to (tolerance of rounding in computer calcuulcations)\n"+sum);
   }
   $scope.method2 = function(){
-    var count = 0;
-    var toEncode = "";
-    for(var i = 0 ;i < sharedContent.length;i++){
-      if(sharedContent.charAt(i)>'A' && sharedContent.charAt(i)<'z'){
-        count++;
-      }
-
-    if(sharedContent){
-      toEncode = "Encoded using Method 2\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
-      $scope.encoded = toEncode;
-    }
-    else {
-      $scope.encoded = "";
-      document.getElementById("analyzediv").classList.add("hidden");
-    }
+    alert("More methods coming soon");
   }
-}
   $scope.method3 = function(){
-    var count = 0;
-    var toEncode = "";
-    for(var i = 0 ;i < sharedContent.length;i++){
-      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
-        count++;
-      }
-
-    if(sharedContent){
-      toEncode = "Encoded using Method 3\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
-      $scope.encoded = toEncode;
-    }
-    else {
-      $scope.encoded = "";
-      document.getElementById("analyzediv").classList.add("hidden");
-    }
+    alert("More methods coming soon");
   }
-}
   $scope.method4 = function(){
-    var count = 0;
-    var toEncode = "";
-    for(var i = 0 ;i < sharedContent.length;i++){
-      if(sharedContent.charAt(i)!="" && sharedContent.charAt(i)!="\n"){
-        count++;
-      }
-      if(sharedContent){
-        toEncode = "Encoded using Method 4\n\nText file has "+sharedContent.length+" characters\n\n and "+count+" non white space characters \n\n" + sharedContent;
-        $scope.encoded = toEncode;
-    }
-      else {
-        $scope.encoded = "";
-        document.getElementById("analyzediv").classList.add("hidden");
-      }
-    }
+    alert("More methods coming soon");
   }
 });
 angular.bootstrap(document.getElementById("analyzediv"), ['analyzeApp']);
