@@ -83,7 +83,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       sum+=each;
     }
     console.log(sum);
-    $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calcuulcations)\n"+sum);
+    $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calculations)\n"+sum);
   }
   $scope.method2 = function(){
     $scope.encoded =("\nMore methods coming soon");
