@@ -41,49 +41,171 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     }
     return false;
   };
-  $scope.method1 = function(){
-    var toEncode = "";
-    var count = 0;
-    //scan characters
-    var prob = [];
-    var probtop = -1;
-    var alpha = [];
-    var alphatop = -1;
-    for(chara of sharedContent){
-      if(!$scope.search(chara,alpha,0)){
-        alphatop++;
-        probtop++;
-        alpha[alphatop] = chara;
-        prob[probtop] = 1;
-      }
-      else{
-        prob[$scope.search(chara,alpha,1)]++;
+  $scope.mySort = function(atop,pro,alph){
+    //My Sort
+    var bubbleo = 0;
+    var bubblei = 0;
+    for(bubbleo = 0; bubbleo <= atop; bubbleo++){
+      for(bubblei = 0; bubblei <= atop; bubblei++){
+        if(pro[bubblei][0] < pro[bubbleo][0]){
+          var temp;
+          temp =  pro[bubbleo];
+          pro[bubbleo] = pro[bubblei]
+          pro[bubblei] = temp;
+          temp = alph[bubbleo];
+          alph[bubbleo] = alph[bubblei];
+          alph[bubblei] = temp;
+        }
       }
     }
-    console.log(alpha);
-    $scope.encoded = ("\n"+alphatop+" characters found in text file");
-    $scope.encoded +=("\nCharacters found are\n "+alpha);
-    console.log(prob);
-    $scope.encoded +=("\nOccurences of these characters are\n "+prob);
-    var sum = 0;
-    for(each of prob){
-      sum+=each;
+    console.log("sorted");
+    //My Sort End
+  }
+  $scope.myHuffSort = function(hc,pto,pro){
+    //My Sort
+    var hs = 0;
+    var bubbleo = 0;
+    var bubblei = 0;
+    var tracked = 0;
+    for(bubbleo = 0; bubbleo <= pto; bubbleo++){
+      for(bubblei = 0; bubblei <= pto; bubblei++){
+        if(pro[bubblei] < pro[bubbleo]){
+          if(bubblei == pto && tracked == 0){
+              hs = bubbleo;
+              tracked = 1;
+          }
+          else if(bubbleo == pto && tracked == 0){
+            hs = bubblei;
+            tracked = 1;
+          }
+          pro[bubblei]+= pro[bubbleo];
+          pro[bubbleo]= pro[bubblei] - pro[bubbleo];
+          pro[bubblei]-= pro[bubbleo];
+          hc[bubblei]+= hc[bubbleo];
+          hc[bubbleo]= hc[bubblei] - hc[bubbleo];
+          hc[bubblei]-= hc[bubbleo];
+        }
+      }
     }
-    console.log(sum);
-    $scope.encoded +=("\nTotal number of characters in text are \n"+sum);
+    console.log("sorted");
+    return hs;
+    //My Sort End
+  }
+  $scope.search = function(msg,tree){
+    if(tree == ""){
+      return 2;
+    }
+    else if(msg == tree[0]){
+      return "0";
+    }
+    else if(msg == tree[1]){
+      return "1";
+    }
+    else if($scope.search(msg,tree[0]) == 2){
+      return("1"+$scope.search(msg,tree[1]));
+    }
+    else{
+      return("0"+$scope.search(msg,tree[0]));
+    }
+
+  }
+  $scope.huffencode = function(msg,tree){
+    if($scope.search(msg,tree[0])==2){
+      return($scope.search(msg,tree[1]));
+    }
+    else{
+      return($scope.search(msg,tree[0]));
+    }
+  }
+  $scope.huffman = function(alph,pro,atop,ptop){
     var temp = 0;
-    for(each in prob){
-      prob[temp]/=sum;
-      temp++;
+    var huffcodes = [];
+    var hufftree = [];
+    var copyalpha = alph;
+    var copyptop = ptop;
+    var copyprob = [];
+    for(temp = 0;temp<=copyptop;temp++){
+      copyprob[temp] = [];
+      copyprob[temp][0] = pro[temp];
+      copyprob[temp][1] = copyalpha[temp];
     }
-    console.log(prob);
-    $scope.encoded +=("\nCorresponding probabilities of each character in file are\n"+prob);
-    sum = 0;
-    for(each of prob){
-      sum+=each;
+    var copyatop = atop;
+    temp = copyptop;
+    console.log(copyprob[0]);
+    console.log(copyprob[copyptop]);
+    while(temp>1){
+      var treetemp;
+      copyprob[temp-1][0]+=copyprob[temp][0];
+      treetemp = copyprob[temp-1][1];
+      copyprob[temp-1][1] = [];
+      copyprob[temp-1][1][0] = treetemp;
+      copyprob[temp-1][1][1] = copyprob[temp][1]
+      temp--;
+      $scope.mySort(temp,copyprob,copyalpha);
     }
-    console.log(sum);
-    $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calculations)\n"+sum);
+    hufftree[0] = copyprob[0];
+    hufftree[1] = copyprob[1];
+    console.log(hufftree);
+    var hufflength;
+    for(hufflength = 0;hufflength <= atop;hufflength++){
+      huffcodes[hufflength] = [];
+      huffcodes[hufflength][0] = copyalpha[hufflength];
+      console.log($scope.huffencode(huffcodes[hufflength][0],hufftree));
+    }
+  }
+  $scope.method1 = function(){
+      if(sharedContent!= ""){
+      var toEncode = "";
+      var count = 0;
+      //scan characters
+      var prob = [];
+      var probtop = -1;
+      var alpha = [];
+      var alphatop = -1;
+      for(chara of sharedContent){
+        if(!$scope.search(chara,alpha,0)){
+          alphatop++;
+          probtop++;
+          alpha[alphatop] = chara;
+          prob[probtop] = 1;
+        }
+        else{
+          prob[$scope.search(chara,alpha,1)]++;
+        }
+      }
+      console.log(prob[alpha.indexOf("S")]);
+      var t0 = performance.now();
+      $scope.mySort(alphatop,prob,alpha);
+      var t1 = performance.now();
+      console.log(prob[alpha.indexOf("S")]);
+      console.log(alpha.indexOf("S"));
+      console.log(prob.indexOf(prob[alpha.indexOf("S")]));
+
+      console.log(t1 - t0 +' milliseconds');
+      $scope.encoded = ("\n"+alphatop+" characters found in text file");
+      $scope.encoded +=("\nCharacters found are\n "+alpha);
+      $scope.encoded +=("\nOccurences of these characters are\n "+prob);
+      var sum = 0;
+      for(each of prob){
+        sum+=each;
+      }
+      $scope.encoded +=("\nTotal number of characters in text are \n"+sum);
+      var temp = 0;
+      for(each in prob){
+        prob[temp]/=sum;
+        temp++;
+      }
+      $scope.encoded +=("\nCorresponding probabilities of each character in file are\n"+prob);
+      sum = 0;
+      for(each of prob){
+        sum+=each;
+      }
+      $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calculations)\n"+sum);
+      $scope.huffman(alpha,prob,alphatop,probtop);
+    }
+    else{
+      $scope.encoded = "";
+    }
   }
   $scope.method2 = function(){
     $scope.encoded =("\nMore methods coming soon");
@@ -94,5 +216,6 @@ analyzeApp.controller("analyzeCtrl",function($scope){
   $scope.method4 = function(){
     $scope.encoded =("\nMore methods coming soon");
   }
+
 });
 angular.bootstrap(document.getElementById("analyzediv"), ['analyzeApp']);
