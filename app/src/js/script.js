@@ -61,52 +61,77 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     console.log("sorted");
     //My Sort End
   }
-  $scope.myHuffSort = function(hc,pto,pro){
-    //My Sort
-    var hs = 0;
-    var bubbleo = 0;
-    var bubblei = 0;
-    var tracked = 0;
-    for(bubbleo = 0; bubbleo <= pto; bubbleo++){
-      for(bubblei = 0; bubblei <= pto; bubblei++){
-        if(pro[bubblei] < pro[bubbleo]){
-          if(bubblei == pto && tracked == 0){
-              hs = bubbleo;
-              tracked = 1;
+  $scope.huffencode = function(msg,tree,cs){
+    var orics = cs;
+    console.log(tree);
+    if(msg === tree[0]){
+      console.log("Found in left first");
+      cs += "0";
+      return cs;
+    }
+    else if(msg === tree[1]){
+      console.log("Found in right first");
+      cs+= "1";
+      return cs;
+    }
+    else if(cs === orics){
+      console.log("Searching for "+msg+" in left child tree \n"+tree[0]);
+      if(tree[0].length > 1){
+        cs += $scope.huffencode(msg,tree[0],"0");
+        console.log(cs);
+        if(cs === orics){
+          console.log("Searching for "+msg+" in right child tree \n"+tree[1]);
+          if(tree[1].length> 1){
+            cs += $scope.huffencode(msg,tree[1],"1");
+            if(cs !== orics){
+              console.log("Found in right recurse");
+              return cs;
+            }
+            else{
+              console.log("not found");
+              return "";
+            }
           }
-          else if(bubbleo == pto && tracked == 0){
-            hs = bubblei;
-            tracked = 1;
-          }
-          pro[bubblei]+= pro[bubbleo];
-          pro[bubbleo]= pro[bubblei] - pro[bubbleo];
-          pro[bubblei]-= pro[bubbleo];
-          hc[bubblei]+= hc[bubbleo];
-          hc[bubbleo]= hc[bubblei] - hc[bubbleo];
-          hc[bubblei]-= hc[bubbleo];
         }
+        else if(cs !== orics){
+          console.log("Found in left recurse");
+          return cs;
+        }
+          else{
+            console.log("not found");
+            return "";
+          }
+        }
+        //Right Side
+        else if(tree[1].length > 1){
+          cs += $scope.huffencode(msg,tree[1],"1");
+          console.log(cs);
+          if(cs === orics){
+            console.log("Searching for "+msg+" in left child tree \n"+tree[0]);
+            if(tree[0].length> 1){
+              cs += $scope.huffencode(msg,tree[0],"0");
+              if(cs !== orics){
+                console.log("Found in right-left recurse");
+                return cs;
+              }
+              else{
+                console.log("not found");
+                return "";
+              }
+            }
+          }
+          else if(cs !== orics){
+            console.log("Found in left-right recurse");
+            return cs;
+          }
+            else{
+              console.log("not found");
+              return "";
+            }
+        }
+        return "";
       }
     }
-    console.log("sorted");
-    return hs;
-    //My Sort End
-  }
-  $scope.huffencode = function(msg,tree){
-    if(tree!= void 0){
-      if(msg == tree){
-        return true;
-      }
-      else if($scope.huffencode(msg,tree[0])){
-        return true;
-      }
-      else if($scope.huffencode(msg,tree[1])){
-        return true;
-      }
-    }
-    else{
-      return false;
-    }
-  }
   $scope.huffman = function(alph,pro,atop,ptop){
     var temp = 0;
     var huffcodes = [];
@@ -133,16 +158,18 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       temp--;
       $scope.mySort(temp,copyprob,copyalpha);
     }
-    hufftree[0] = copyprob[0];
-    hufftree[1] = copyprob[1];
+    hufftree[0] = copyprob[0][1];
+    hufftree[1] = copyprob[1][1];
     console.log(hufftree);
     var hufflength;
+    var codestring = "";
     for(hufflength = 0;hufflength <= atop;hufflength++){
       huffcodes[hufflength] = [];
       huffcodes[hufflength][0] = copyalpha[hufflength];
-      huffcodes[hufflength][1] = $scope.huffencode(huffcodes[hufflength][0],hufftree);
+      huffcodes[hufflength][1] = $scope.huffencode(huffcodes[hufflength][0],hufftree,codestring);
     }
     console.log(huffcodes);
+    return huffcodes;
   }
   $scope.method1 = function(){
       if(sharedContent!= ""){
@@ -164,31 +191,30 @@ analyzeApp.controller("analyzeCtrl",function($scope){
           prob[$scope.search(chara,alpha,1)]++;
         }
       }
-      var t0 = performance.now();
       $scope.mySort(alphatop,prob,alpha);
-      var t1 = performance.now();
-
-      console.log(t1 - t0 +' milliseconds');
-      $scope.encoded = ("\n"+alphatop+" characters found in text file");
-      $scope.encoded +=("\nCharacters found are\n "+alpha);
-      $scope.encoded +=("\nOccurences of these characters are\n "+prob);
       var sum = 0;
       for(each of prob){
         sum+=each;
       }
-      $scope.encoded +=("\nTotal number of characters in text are \n"+sum);
       var temp = 0;
       for(each in prob){
         prob[temp]/=sum;
         temp++;
       }
-      $scope.encoded +=("\nCorresponding probabilities of each character in file are\n"+prob);
       sum = 0;
       for(each of prob){
         sum+=each;
       }
-      $scope.encoded +=("\nSum of all probabilities add up to (tolerance of rounding in computer calculations)\n"+sum);
-      $scope.huffman(alpha,prob,alphatop,probtop);
+      var parsecode;
+      parsedContent = "";
+      parsecode = $scope.huffman(alpha,prob,alphatop,probtop);
+      console.log(parsecode);
+      var sharedindex = 0;
+      for(each in parsecode){
+        sharedContent = sharedContent.split(parsecode[sharedindex][0]).join(parsecode[sharedindex][1]+"|");
+        sharedindex++;
+      }
+      $scope.encoded = sharedContent;
     }
     else{
       $scope.encoded = "";
