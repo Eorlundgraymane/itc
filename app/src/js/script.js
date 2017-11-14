@@ -91,30 +91,20 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     return hs;
     //My Sort End
   }
-  $scope.search = function(msg,tree){
-    if(tree == ""){
-      return 2;
-    }
-    else if(msg == tree[0]){
-      return "0";
-    }
-    else if(msg == tree[1]){
-      return "1";
-    }
-    else if($scope.search(msg,tree[0]) == 2){
-      return("1"+$scope.search(msg,tree[1]));
-    }
-    else{
-      return("0"+$scope.search(msg,tree[0]));
-    }
-
-  }
   $scope.huffencode = function(msg,tree){
-    if($scope.search(msg,tree[0])==2){
-      return($scope.search(msg,tree[1]));
+    if(tree!= void 0){
+      if(msg == tree){
+        return true;
+      }
+      else if($scope.huffencode(msg,tree[0])){
+        return true;
+      }
+      else if($scope.huffencode(msg,tree[1])){
+        return true;
+      }
     }
     else{
-      return($scope.search(msg,tree[0]));
+      return false;
     }
   }
   $scope.huffman = function(alph,pro,atop,ptop){
@@ -150,8 +140,9 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     for(hufflength = 0;hufflength <= atop;hufflength++){
       huffcodes[hufflength] = [];
       huffcodes[hufflength][0] = copyalpha[hufflength];
-      console.log($scope.huffencode(huffcodes[hufflength][0],hufftree));
+      huffcodes[hufflength][1] = $scope.huffencode(huffcodes[hufflength][0],hufftree);
     }
+    console.log(huffcodes);
   }
   $scope.method1 = function(){
       if(sharedContent!= ""){
@@ -173,13 +164,9 @@ analyzeApp.controller("analyzeCtrl",function($scope){
           prob[$scope.search(chara,alpha,1)]++;
         }
       }
-      console.log(prob[alpha.indexOf("S")]);
       var t0 = performance.now();
       $scope.mySort(alphatop,prob,alpha);
       var t1 = performance.now();
-      console.log(prob[alpha.indexOf("S")]);
-      console.log(alpha.indexOf("S"));
-      console.log(prob.indexOf(prob[alpha.indexOf("S")]));
 
       console.log(t1 - t0 +' milliseconds');
       $scope.encoded = ("\n"+alphatop+" characters found in text file");
