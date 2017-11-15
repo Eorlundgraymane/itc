@@ -15,8 +15,9 @@ fileApp.controller("fileCtrl",function($scope,$http){
   $scope.clear = function(){
     sharedContent = "";
     $scope.content = "";
+    $scope.encoded = "";
     document.getElementById("analyzediv").classList.add("hidden");
-    document.getElementById('fileToUpload').value = "";
+    document.getElementById('fileToUpload').value = "";    
     document.getElementById('method1button').click();
   }
   $scope.analyze = function(){
