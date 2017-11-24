@@ -8,6 +8,8 @@ fileApp.controller("fileCtrl",function($scope,$http){
         $scope.$apply(function(){
           $scope.content = String(reader.result);
           sharedContent = $scope.content;
+          huffContent = sharedContent;
+          binContent = sharedContent;
         });
       };
       reader.readAsText(textfile);
@@ -17,7 +19,7 @@ fileApp.controller("fileCtrl",function($scope,$http){
     $scope.content = "";
     $scope.encoded = "";
     document.getElementById("analyzediv").classList.add("hidden");
-    document.getElementById('fileToUpload').value = "";    
+    document.getElementById('fileToUpload').value = "";
     document.getElementById('method1button').click();
   }
   $scope.analyze = function(){
@@ -134,6 +136,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       }
     }
   $scope.huffman = function(alph,pro,atop,ptop){
+    var t0 = performance.now();
     var temp = 0;
     var huffcodes = [];
     var hufftree = [];
@@ -170,59 +173,79 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       huffcodes[hufflength][1] = $scope.huffencode(huffcodes[hufflength][0],hufftree,codestring);
     }
     console.log(huffcodes);
+    var t1 = performance.now();
     return huffcodes;
   }
   $scope.method1 = function(){
-      if(sharedContent!= ""){
-      var toEncode = "";
-      var count = 0;
-      //scan characters
-      var prob = [];
-      var probtop = -1;
-      var alpha = [];
-      var alphatop = -1;
-      for(chara of sharedContent){
-        if(!$scope.search(chara,alpha,0)){
-          alphatop++;
-          probtop++;
-          alpha[alphatop] = chara;
-          prob[probtop] = 1;
+    document.getElementById("performance").classList.remove("yesshow");
+      if(huffContent!= ""){
+        huffContent = sharedContent;
+        var toEncode = "";
+        var count = 0;
+        //scan characters
+        var prob = [];
+        var probtop = -1;
+        var alpha = [];
+        var alphatop = -1;
+        for(chara of huffContent){
+          if(!$scope.search(chara,alpha,0)){
+            alphatop++;
+            probtop++;
+            alpha[alphatop] = chara;
+            prob[probtop] = 1;
+          }
+          else{
+            prob[$scope.search(chara,alpha,1)]++;
+          }
         }
-        else{
-          prob[$scope.search(chara,alpha,1)]++;
+        $scope.mySort(alphatop,prob,alpha);
+        var sum = 0;
+        for(each of prob){
+          sum+=each;
         }
-      }
-      $scope.mySort(alphatop,prob,alpha);
-      var sum = 0;
-      for(each of prob){
-        sum+=each;
-      }
-      var temp = 0;
-      for(each in prob){
-        prob[temp]/=sum;
-        temp++;
-      }
-      sum = 0;
-      for(each of prob){
-        sum+=each;
-      }
-      var parsecode;
-      parsedContent = "";
-      parsecode = $scope.huffman(alpha,prob,alphatop,probtop);
-      console.log(parsecode);
-      var sharedindex = 0;
-      for(each in parsecode){
-        sharedContent = sharedContent.split(parsecode[sharedindex][0]).join(parsecode[sharedindex][1]+"|");
-        sharedindex++;
-      }
-      $scope.encoded = sharedContent;
+        var temp = 0;
+        for(each in prob){
+          prob[temp]/=sum;
+          temp++;
+        }
+        sum = 0;
+        for(each of prob){
+          sum+=each;
+        }
+        var parsecode;
+        parsedContent = "";
+        parsecode = $scope.huffman(alpha,prob,alphatop,probtop);
+        console.log(parsecode);
+        var sharedindex = 0;
+        for(each in parsecode){
+          huffContent = huffContent.split(parsecode[sharedindex][0]).join(parsecode[sharedindex][1]+"|||");
+          sharedindex++;
+        }
+        $scope.encoded = huffContent;
+        $scope.performance = "Time taken by huffman code is "+(t1-t0)+" milliseconds and the data length is now "+huffContent.length()+" bits";
+        document.getElementById("performance").classList.add("yesshow");
     }
     else{
       $scope.encoded = "";
     }
   }
   $scope.method2 = function(){
-    $scope.encoded =("\nMore methods coming soon");
+    document.getElementById("performance").classList.remove("yesshow");
+    $scope.encoded = "";
+    $scope.convert = function(str) {
+      var t0 = performance.now()
+      var output = "";
+      var input = str;
+      output.value = "";
+      for (var i = 0; i < input.length; i++) {
+        output += input[i].charCodeAt(0).toString(2) + "|||";
+      }
+      var t1 = performance.now()
+      $scope.performance = "Time taken to run traditional binary conversion code is "+(t1-t0)+" milliseconds and the data is now a length of "+output.length+" bits"();
+      document.getElementById("performance").classList.add("yesshow");
+      return output;
+    }
+    $scope.encoded =($scope.convert(binContent));
   }
   $scope.method3 = function(){
     $scope.encoded =("\nMore methods coming soon");

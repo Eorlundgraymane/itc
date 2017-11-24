@@ -57,24 +57,16 @@ input{
   outline: none;
 }
 .noshow{
-  width: 95%;
-  margin: auto;
-  position: absolute;
   transition-property: all;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
   opacity: 0;
-  visibility: collapse;
 }
 .yesshow{
-  width: 95%;
-  margin: auto;
-  position: absolute;
   transition-property: all;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
   opacity: 1;
-  visibility:visible;
 }
 .blinkshow{
   visibility:visible;
