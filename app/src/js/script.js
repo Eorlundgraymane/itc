@@ -69,13 +69,11 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     console.log(tree);
     if(msg === tree[0]){
       console.log("Found in left first");
-      cs += "0";
-      return cs;
+      return cs+"0";
     }
     else if(msg === tree[1]){
       console.log("Found in right first");
-      cs+= "1";
-      return cs;
+      return cs+"1";
     }
     else if(cs === orics){
       console.log("Searching for "+msg+" in left child tree \n"+tree[0]);
@@ -164,7 +162,6 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     }
     hufftree[0] = copyprob[0][1];
     hufftree[1] = copyprob[1][1];
-    console.log(hufftree);
     var hufflength;
     var codestring = "";
     for(hufflength = 0;hufflength <= atop;hufflength++){
@@ -172,11 +169,13 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       huffcodes[hufflength][0] = copyalpha[hufflength];
       huffcodes[hufflength][1] = $scope.huffencode(huffcodes[hufflength][0],hufftree,codestring);
     }
-    console.log(huffcodes);
+    $scope.huffelement = huffcodes;
     var t1 = performance.now();
+    $scope.performance = "Time taken by huffman code is "+(t1-t0)+" milliseconds";
     return huffcodes;
   }
   $scope.method1 = function(){
+    $scope.encoded = "";
     document.getElementById("performance").classList.remove("yesshow");
       if(huffContent!= ""){
         huffContent = sharedContent;
@@ -218,11 +217,11 @@ analyzeApp.controller("analyzeCtrl",function($scope){
         console.log(parsecode);
         var sharedindex = 0;
         for(each in parsecode){
-          huffContent = huffContent.split(parsecode[sharedindex][0]).join(parsecode[sharedindex][1]+"|||");
+          huffContent = huffContent.split(parsecode[sharedindex][0]).join(parsecode[sharedindex][1]);
           sharedindex++;
         }
         $scope.encoded = huffContent;
-        $scope.performance = "Time taken by huffman code is "+(t1-t0)+" milliseconds and the data length is now "+huffContent.length()+" bits";
+        $scope.performance += " and the data length is now "+huffContent.length+" bits";
         document.getElementById("performance").classList.add("yesshow");
     }
     else{
@@ -230,6 +229,7 @@ analyzeApp.controller("analyzeCtrl",function($scope){
     }
   }
   $scope.method2 = function(){
+    $scope.encoded = "";
     document.getElementById("performance").classList.remove("yesshow");
     $scope.encoded = "";
     $scope.convert = function(str) {
@@ -238,10 +238,10 @@ analyzeApp.controller("analyzeCtrl",function($scope){
       var input = str;
       output.value = "";
       for (var i = 0; i < input.length; i++) {
-        output += input[i].charCodeAt(0).toString(2) + "|||";
+        output += input[i].charCodeAt(0).toString(2);
       }
       var t1 = performance.now()
-      $scope.performance = "Time taken to run traditional binary conversion code is "+(t1-t0)+" milliseconds and the data is now a length of "+output.length+" bits"();
+      $scope.performance = "Time taken to run traditional binary conversion code is "+(t1-t0)+" milliseconds and the data is now a length of "+output.length+" bits";
       document.getElementById("performance").classList.add("yesshow");
       return output;
     }

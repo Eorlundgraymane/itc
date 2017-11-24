@@ -12,6 +12,11 @@
       {{performance}}
     </div>
 </div>
+<div class = "row">
+  <div class = "well col-xs-12 col-sm-12 col-lg-12 col-md-12">
+    <textarea class = "form-control" rows = "10" id = "huffelement" >{{huffelement}}</textarea><br>
+  </div>
+</div>
   <div class = "row">
     <div class = "well col-xs-12 col-sm-12 col-lg-12 col-md-12">
       <textarea class = "form-control" rows = "15" id = "inputtext" >{{encoded}}</textarea><br>
